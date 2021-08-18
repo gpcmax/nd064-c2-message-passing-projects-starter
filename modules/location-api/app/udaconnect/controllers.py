@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from app.udaconnect.models import Location
+from app.udaconnect.models import Connection, Location, Person
 from app.udaconnect.schemas import (
     LocationSchema,
 )
