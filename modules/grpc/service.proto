@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+message PersonMsg {
+    string first_name = 1;
+    string last_name = 2;
+    string company_name = 3;
+}
+
+message LocationMsg {
+    int32 person_id = 1;
+    string creation_time = 2;
+    string coordinate = 3;
+}
+
+message Person {
+    bool person = 1;
+}
+
+message Location {
+    bool location = 1;
+}
+
+service GetService {
+    rpc CreatePersonMsg(PersonMsg) returns (Person);
+    rpc CreateLocationMsg(LocationMsg) returns (Location);
+}
