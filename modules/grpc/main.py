@@ -1,35 +1,31 @@
 import time
-from concurrent import futures
-
-from grpc import server
 import grpc
-
 import service_pb2
 import service_pb2_grpc
+from concurrent import futures
 
-class LocationServicer(service_pb2_grpc.GetServiceServicer):
-    def Create(self, request, context):
+class UdaServicer(service_pb2_grpc.CallServiceServicer):
+    def create_person(self, request, context):
         request_value = {
-            "person_id": int(request.person_id),
-            "creation_time": request.creation_time,
-            "coordinate": request.coordinate,
-        }
-        print(request_value)
-        return service_pb2.LocationMsg(**request_value)
-        
-class PersonServicer(service_pb2_grpc.GetServiceServicer):
-    def Create(self, request, context):
-        request_value = {
+            "id": request.id,
             "first_name": request.first_name,
             "last_name": request.last_name,
             "company_name": request.company_name,
         }
         print(request_value)
         return service_pb2.PersonMsg(**request_value)
+    def create_loc(self, request, context):
+        request_value = {
+            "id": request.id,
+            "person_id":request.person_id,
+            "coordinate":request.coordinate,
+            "creation_time":request.creation_time,
+        }
+        print(request_value)
+        return service_pb2.LocationMsg(**request_value)
 
 server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
-service_pb2_grpc.add_GetServiceServicer_to_server(LocationServicer(),server)
-service_pb2_grpc.add_GetServiceServicer_to_server(PersonServicer(), server)
+service_pb2_grpc.add_CallServiceServicer_to_server(UdaServicer(), server)
 
 print("Server starting on port 5005...")
 server.add_insecure_port("[::]:5005")

@@ -5,7 +5,7 @@ import grpc
 import service_pb2 as service__pb2
 
 
-class GetServiceStub(object):
+class CallServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,58 +14,58 @@ class GetServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.CreatePersonMsg = channel.unary_unary(
-                '/GetService/CreatePersonMsg',
+        self.create_person = channel.unary_unary(
+                '/CallService/create_person',
                 request_serializer=service__pb2.PersonMsg.SerializeToString,
-                response_deserializer=service__pb2.Person.FromString,
+                response_deserializer=service__pb2.PersonMsg.FromString,
                 )
-        self.CreateLocationMsg = channel.unary_unary(
-                '/GetService/CreateLocationMsg',
+        self.create_loc = channel.unary_unary(
+                '/CallService/create_loc',
                 request_serializer=service__pb2.LocationMsg.SerializeToString,
-                response_deserializer=service__pb2.Location.FromString,
+                response_deserializer=service__pb2.LocationMsg.FromString,
                 )
 
 
-class GetServiceServicer(object):
+class CallServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def CreatePersonMsg(self, request, context):
+    def create_person(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def CreateLocationMsg(self, request, context):
+    def create_loc(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_GetServiceServicer_to_server(servicer, server):
+def add_CallServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CreatePersonMsg': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreatePersonMsg,
+            'create_person': grpc.unary_unary_rpc_method_handler(
+                    servicer.create_person,
                     request_deserializer=service__pb2.PersonMsg.FromString,
-                    response_serializer=service__pb2.Person.SerializeToString,
+                    response_serializer=service__pb2.PersonMsg.SerializeToString,
             ),
-            'CreateLocationMsg': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateLocationMsg,
+            'create_loc': grpc.unary_unary_rpc_method_handler(
+                    servicer.create_loc,
                     request_deserializer=service__pb2.LocationMsg.FromString,
-                    response_serializer=service__pb2.Location.SerializeToString,
+                    response_serializer=service__pb2.LocationMsg.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'GetService', rpc_method_handlers)
+            'CallService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class GetService(object):
+class CallService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def CreatePersonMsg(request,
+    def create_person(request,
             target,
             options=(),
             channel_credentials=None,
@@ -75,14 +75,14 @@ class GetService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/GetService/CreatePersonMsg',
+        return grpc.experimental.unary_unary(request, target, '/CallService/create_person',
             service__pb2.PersonMsg.SerializeToString,
-            service__pb2.Person.FromString,
+            service__pb2.PersonMsg.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def CreateLocationMsg(request,
+    def create_loc(request,
             target,
             options=(),
             channel_credentials=None,
@@ -92,8 +92,8 @@ class GetService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/GetService/CreateLocationMsg',
+        return grpc.experimental.unary_unary(request, target, '/CallService/create_loc',
             service__pb2.LocationMsg.SerializeToString,
-            service__pb2.Location.FromString,
+            service__pb2.LocationMsg.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

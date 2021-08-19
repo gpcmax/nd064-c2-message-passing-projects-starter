@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rservice.proto\"H\n\tPersonMsg\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\x14\n\x0c\x63ompany_name\x18\x03 \x01(\t\"K\n\x0bLocationMsg\x12\x11\n\tperson_id\x18\x01 \x01(\x05\x12\x15\n\rcreation_time\x18\x02 \x01(\t\x12\x12\n\ncoordinate\x18\x03 \x01(\t\"\x18\n\x06Person\x12\x0e\n\x06person\x18\x01 \x01(\x08\"\x1c\n\x08Location\x12\x10\n\x08location\x18\x01 \x01(\x08\x32\x62\n\nGetService\x12&\n\x0f\x43reatePersonMsg\x12\n.PersonMsg\x1a\x07.Person\x12,\n\x11\x43reateLocationMsg\x12\x0c.LocationMsg\x1a\t.Locationb\x06proto3'
+  serialized_pb=b'\n\rservice.proto\"T\n\tPersonMsg\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\x14\n\x0c\x63ompany_name\x18\x04 \x01(\t\"W\n\x0bLocationMsg\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x11\n\tperson_id\x18\x02 \x01(\x05\x12\x12\n\ncoordinate\x18\x03 \x01(\t\x12\x15\n\rcreation_time\x18\x04 \x01(\t2`\n\x0b\x43\x61llService\x12\'\n\rcreate_person\x12\n.PersonMsg\x1a\n.PersonMsg\x12(\n\ncreate_loc\x12\x0c.LocationMsg\x1a\x0c.LocationMsgb\x06proto3'
 )
 
 
@@ -34,22 +34,29 @@ _PERSONMSG = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='first_name', full_name='PersonMsg.first_name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='id', full_name='PersonMsg.id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='last_name', full_name='PersonMsg.last_name', index=1,
+      name='first_name', full_name='PersonMsg.first_name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='company_name', full_name='PersonMsg.company_name', index=2,
+      name='last_name', full_name='PersonMsg.last_name', index=2,
       number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='company_name', full_name='PersonMsg.company_name', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -67,7 +74,7 @@ _PERSONMSG = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=17,
-  serialized_end=89,
+  serialized_end=101,
 )
 
 
@@ -80,16 +87,16 @@ _LOCATIONMSG = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='person_id', full_name='LocationMsg.person_id', index=0,
+      name='id', full_name='LocationMsg.id', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='creation_time', full_name='LocationMsg.creation_time', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='person_id', full_name='LocationMsg.person_id', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -100,35 +107,10 @@ _LOCATIONMSG = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=91,
-  serialized_end=166,
-)
-
-
-_PERSON = _descriptor.Descriptor(
-  name='Person',
-  full_name='Person',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
     _descriptor.FieldDescriptor(
-      name='person', full_name='Person.person', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
+      name='creation_time', full_name='LocationMsg.creation_time', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -144,46 +126,12 @@ _PERSON = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=168,
-  serialized_end=192,
-)
-
-
-_LOCATION = _descriptor.Descriptor(
-  name='Location',
-  full_name='Location',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='location', full_name='Location.location', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=194,
-  serialized_end=222,
+  serialized_start=103,
+  serialized_end=190,
 )
 
 DESCRIPTOR.message_types_by_name['PersonMsg'] = _PERSONMSG
 DESCRIPTOR.message_types_by_name['LocationMsg'] = _LOCATIONMSG
-DESCRIPTOR.message_types_by_name['Person'] = _PERSON
-DESCRIPTOR.message_types_by_name['Location'] = _LOCATION
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 PersonMsg = _reflection.GeneratedProtocolMessageType('PersonMsg', (_message.Message,), {
@@ -200,55 +148,41 @@ LocationMsg = _reflection.GeneratedProtocolMessageType('LocationMsg', (_message.
   })
 _sym_db.RegisterMessage(LocationMsg)
 
-Person = _reflection.GeneratedProtocolMessageType('Person', (_message.Message,), {
-  'DESCRIPTOR' : _PERSON,
-  '__module__' : 'service_pb2'
-  # @@protoc_insertion_point(class_scope:Person)
-  })
-_sym_db.RegisterMessage(Person)
-
-Location = _reflection.GeneratedProtocolMessageType('Location', (_message.Message,), {
-  'DESCRIPTOR' : _LOCATION,
-  '__module__' : 'service_pb2'
-  # @@protoc_insertion_point(class_scope:Location)
-  })
-_sym_db.RegisterMessage(Location)
 
 
-
-_GETSERVICE = _descriptor.ServiceDescriptor(
-  name='GetService',
-  full_name='GetService',
+_CALLSERVICE = _descriptor.ServiceDescriptor(
+  name='CallService',
+  full_name='CallService',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=224,
-  serialized_end=322,
+  serialized_start=192,
+  serialized_end=288,
   methods=[
   _descriptor.MethodDescriptor(
-    name='CreatePersonMsg',
-    full_name='GetService.CreatePersonMsg',
+    name='create_person',
+    full_name='CallService.create_person',
     index=0,
     containing_service=None,
     input_type=_PERSONMSG,
-    output_type=_PERSON,
+    output_type=_PERSONMSG,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='CreateLocationMsg',
-    full_name='GetService.CreateLocationMsg',
+    name='create_loc',
+    full_name='CallService.create_loc',
     index=1,
     containing_service=None,
     input_type=_LOCATIONMSG,
-    output_type=_LOCATION,
+    output_type=_LOCATIONMSG,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_GETSERVICE)
+_sym_db.RegisterServiceDescriptor(_CALLSERVICE)
 
-DESCRIPTOR.services_by_name['GetService'] = _GETSERVICE
+DESCRIPTOR.services_by_name['CallService'] = _CALLSERVICE
 
 # @@protoc_insertion_point(module_scope)
