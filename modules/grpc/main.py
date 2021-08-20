@@ -18,7 +18,8 @@ class UdaServicer(service_pb2_grpc.CallServiceServicer):
         request_value = {
             "id": request.id,
             "person_id":request.person_id,
-            "coordinate":request.coordinate,
+            "latitude":request.latitude,
+            "longitude":request.longitude,
             "creation_time":request.creation_time,
         }
         print(request_value)

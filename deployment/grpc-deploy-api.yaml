@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: uda-grpc
+  name: uda-grpc
+spec:
+  ports:
+  - name: "5004"
+    port: 5004
+    targetPort: 5004
+    nodePort: 30006
+  selector:
+    service: uda-grpc
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: uda-grpc
+  name: uda-grpc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: uda-grpc
+  template:
+    metadata:
+      labels:
+        service: uda-grpc
+    spec:
+      containers:
+      - image: gpcmax/uda-grpc:latest
+        name: uda-grpc
+        imagePullPolicy: Always
+        env:
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-env
+              key: DB_USERNAME
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_PASSWORD
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-env
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: db-env
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: db-env
+              key: DB_PORT
+      restartPolicy: Always
