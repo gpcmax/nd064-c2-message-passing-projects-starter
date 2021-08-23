@@ -9,4 +9,4 @@ RUN pip install -r requirements.txt
 EXPOSE 5004
 
 COPY . .
-CMD ["python", "main.py"]
+CMD ["python", "main.py", "--port", "5004"]

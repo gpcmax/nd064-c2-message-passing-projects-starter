@@ -28,8 +28,8 @@ class UdaServicer(service_pb2_grpc.CallServiceServicer):
 server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
 service_pb2_grpc.add_CallServiceServicer_to_server(UdaServicer(), server)
 
-print("Server starting on port 5005...")
-server.add_insecure_port("[::]:5005")
+print("Server starting on port 5004...")
+server.add_insecure_port("[::]:5004")
 server.start()
 try:
     while True:
