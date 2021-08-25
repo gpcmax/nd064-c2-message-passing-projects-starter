@@ -8,7 +8,7 @@ import service_pb2_grpc
 TOPIC_NAME = 'person'
 
 def create_person(reg):
-    channel = grpc.insecure_channel("grpc:5005")
+    channel = grpc.insecure_channel("grpc:5004")
     stub = service_pb2_grpc.CallServiceStub(channel)
     person = PersonMsg(
         first_name = reg["first_name"],
@@ -17,7 +17,7 @@ def create_person(reg):
     stub.create_person(person)
 
 def create_loc(reg):
-    channel = grpc.insecure_channel("grpc:5005")
+    channel = grpc.insecure_channel("grpc:5004")
     stub = service_pb2_grpc.CallServiceStub(channel)
     location = LocationMsg(
         person_id = reg["person_id"],
