@@ -17,12 +17,12 @@ class CallServiceStub(object):
         self.create_person = channel.unary_unary(
                 '/CallService/create_person',
                 request_serializer=service__pb2.PersonMsg.SerializeToString,
-                response_deserializer=service__pb2.PersonMsg.FromString,
+                response_deserializer=service__pb2.Person.FromString,
                 )
         self.create_loc = channel.unary_unary(
                 '/CallService/create_loc',
                 request_serializer=service__pb2.LocationMsg.SerializeToString,
-                response_deserializer=service__pb2.LocationMsg.FromString,
+                response_deserializer=service__pb2.Location.FromString,
                 )
 
 
@@ -47,12 +47,12 @@ def add_CallServiceServicer_to_server(servicer, server):
             'create_person': grpc.unary_unary_rpc_method_handler(
                     servicer.create_person,
                     request_deserializer=service__pb2.PersonMsg.FromString,
-                    response_serializer=service__pb2.PersonMsg.SerializeToString,
+                    response_serializer=service__pb2.Person.SerializeToString,
             ),
             'create_loc': grpc.unary_unary_rpc_method_handler(
                     servicer.create_loc,
                     request_deserializer=service__pb2.LocationMsg.FromString,
-                    response_serializer=service__pb2.LocationMsg.SerializeToString,
+                    response_serializer=service__pb2.Location.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -77,7 +77,7 @@ class CallService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/CallService/create_person',
             service__pb2.PersonMsg.SerializeToString,
-            service__pb2.PersonMsg.FromString,
+            service__pb2.Person.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -94,6 +94,6 @@ class CallService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/CallService/create_loc',
             service__pb2.LocationMsg.SerializeToString,
-            service__pb2.LocationMsg.FromString,
+            service__pb2.Location.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

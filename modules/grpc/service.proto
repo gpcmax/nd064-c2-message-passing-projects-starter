@@ -15,7 +15,15 @@ message LocationMsg {
     string creation_time = 5;
 }
 
+message Person {
+    bool person = 1;
+}
+
+message Location {
+    bool location = 1;
+}
+
 service CallService {
-    rpc create_person(PersonMsg) returns (PersonMsg);
-    rpc create_loc(LocationMsg) returns (LocationMsg);
+    rpc create_person(PersonMsg) returns (Person);
+    rpc create_loc(LocationMsg) returns (Location);
 }
