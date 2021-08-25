@@ -7,6 +7,7 @@ from app.udaconnect.models import Connection, Location, Person
 from app.udaconnect.schemas import LocationSchema, ConnectionSchema, PersonSchema
 from geoalchemy2.functions import ST_AsText, ST_Point
 from sqlalchemy.sql import text
+from kafka import KafkaProducer
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("udaconnect-api")
@@ -30,7 +31,9 @@ class LocationService:
         if validation_results:
             logger.warning(f"Unexpected data format in payload: {validation_results}")
             raise Exception(f"Invalid payload: {validation_results}")
-
+        producer = KafkaProducer(bootstrap_servers='my-release-kafka-0.default.svc.cluster.local:9092')
+        producer.send('test',bytes(str(location),'utf-8'))
+        producer.flush()
         new_location = Location()
         new_location.person_id = location["person_id"]
         new_location.creation_time = location["creation_time"]
