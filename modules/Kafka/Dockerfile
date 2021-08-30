@@ -6,7 +6,7 @@ WORKDIR .
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-EXPOSE 5005
+EXPOSE 5000
 
 COPY . .
-CMD ["python","consumer.py", "--port", "5004"]
+CMD ["python","consumer.py"]

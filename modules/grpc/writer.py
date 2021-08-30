@@ -1,18 +1,23 @@
 import grpc
 import service_pb2
 import service_pb2_grpc
+from service_pb2 import PersonMsg, LocationMsg
 
 from datetime import datetime
 
-print("Sending sameple data...")
+# open a gRPC channel
+channel = grpc.insecure_channel('localhost:5004')
 
-channel = grpc.insecure_channel("localhost:5004")
+# create a stub (client)
 stub = service_pb2_grpc.CallServiceStub(channel)
 
-Person = service_pb2.PersonMsg(id=1, first_name="Steeve", last_name = "Joel", company_name = "Big Tech Comp")
-response = stub.create_person(Person)
-print(Person)
+# create a valid request message
+person = PersonMsg(first_name="Bob" , last_name="Stevens", company_name="Tech Comp")
+#location = LocationMessage(person_id=5,creation_time="2020-01-05T10:37:06",latitude="20.518730",longitude="22.992470")
+#stub.create_location(location)
+stub.create_person(person)
+print(person)
+#print(location)
 
-#Location = service_pb2.LocationMsg(id=1, person_id=1, latitude = "32N", longitude="32E", creation_time = "12am")
-#stub.create_loc(Location)
-#print(Location)
+# make the call
+#stub.create_person(person)

@@ -31,7 +31,7 @@ class LocationService:
         if validation_results:
             logger.warning(f"Unexpected data format in payload: {validation_results}")
             raise Exception(f"Invalid payload: {validation_results}")
-        producer = KafkaProducer(bootstrap_servers='my-release-kafka-0.default.svc.cluster.local:9092')
+        producer = KafkaProducer(bootstrap_servers='my-release-kafka.default.svc.cluster.local:9092')
         producer.send('test',bytes(str(location),'utf-8'))
         producer.flush()
         new_location = Location()

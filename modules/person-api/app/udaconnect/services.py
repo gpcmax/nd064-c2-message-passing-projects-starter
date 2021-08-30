@@ -19,9 +19,10 @@ class PersonService:
         new_person.first_name = person["first_name"]
         new_person.last_name = person["last_name"]
         new_person.company_name = person["company_name"]
-        producer = KafkaProducer(bootstrap_servers='my-release-kafka-0.my-release-kafka-headless.default.svc.cluster.local:9092')
+        producer = KafkaProducer(bootstrap_servers='my-release-kafka.default.svc.cluster.local:9092')
         producer.send('text',bytes(str(person),'utf-8'))
         producer.flush()
+        logger.warning("New Person Added")
         return new_person
 
     @staticmethod
