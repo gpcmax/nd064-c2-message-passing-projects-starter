@@ -1,4 +1,5 @@
 from __future__ import annotations
+from sys import api_version
 from kafka import KafkaConsumer
 from dataclasses import dataclass
 from datetime import datetime
@@ -14,21 +15,21 @@ logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("udaconnect-api")
 
 def create_person(req):
-    channel = grpc.insecure_channel('grpc-api:5004')
+    channel = grpc.insecure_channel('uda-grpc:5004')
     stub = service_pb2_grpc.CallServiceStub(channel)
     person = PersonMsg(first_name=req["first_name"] , last_name=req["last_name"], company_name=req["company_name"])
     stub.create_person(person)
 
 
 def create_location(req):
-    channel = grpc.insecure_channel('grpc-api:5004')
+    channel = grpc.insecure_channel('uda-grpc:5004')
     stub = service_pb2_grpc.CallServiceStub(channel)
     location = LocationMsg(person_id=req["person_id"], creation_time=req["creation_time"],latitude=req["latitude"],longitude=req["longitude"])
     stub.create_loc(location)
 
 
 consumer = KafkaConsumer('test',
-     bootstrap_servers=['my-release-kafka.default.svc.cluster.local:9092'],
+     bootstrap_servers=['my-release-kafka.default.svc.cluster.local:9092'], api_version=(0,10,1),
      value_deserializer=lambda m: json.dumps(m.decode('utf-8')))
 
 for message in consumer:

@@ -19,9 +19,17 @@ class PersonService:
         new_person.first_name = person["first_name"]
         new_person.last_name = person["last_name"]
         new_person.company_name = person["company_name"]
-        producer = KafkaProducer(bootstrap_servers='my-release-kafka.default.svc.cluster.local:9092')
+        producer = KafkaProducer(
+            bootstrap_servers='my-release-kafka.default.svc.cluster.local:9092',
+            #client_id=CLIENT_ID,
+            #value_serializer=JsonSerializer.serialize,
+            api_version=(0, 10, 1)
+        )
+        producer1 = KafkaProducer(bootstrap_servers='my-release-kafka-0.my-release-kafka-headless.default.svc.cluster.local:9092')
         producer.send('text',bytes(str(person),'utf-8'))
         producer.flush()
+        producer1.send('text',bytes(str(person),'utf-8'))
+        producer1.flush()
         logger.warning("New Person Added")
         return new_person
 
