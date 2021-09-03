@@ -32,6 +32,7 @@ consumer = KafkaConsumer('test',
      value_deserializer=lambda m: json.dumps(m.decode('utf-8')))
 
 for message in consumer:
+    logger.warning("Send Data")
     resp=eval(json.loads((message.value)))
     if "first_name" in resp:
         create_person(resp)
