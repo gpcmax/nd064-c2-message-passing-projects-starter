@@ -1,0 +1,107 @@
+openapi: 3.0.0
+info:
+  description: adds and gets person data from the person-api.
+  version: "1.0.0"
+  title: person-api
+paths:
+  /api/persons:
+    get:
+      summary: gets all the person data from the database
+      operationId: getDataPersonResources
+      description: all the persons from the database
+      responses:
+        '200':
+          description: all persons in database
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Persons'
+        '400':
+          description: wrong input
+    post:
+      summary: creates a new person
+      operationId: addDataPersonResources
+      description: adds a new person to the database.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPerson'
+        description: added new person to the database
+      responses:
+        '201':
+          description: person created/added into the database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddPerson'
+        '400':
+          description: 'invalid input'
+  '/api/persons/{person_id}':
+    parameters:
+      - in: path
+        description: id of the person
+        name: person_id
+        required: true
+        schema:
+          $ref: '#/components/schemas/Person'
+    get:
+      summary: gets a person from the person api
+      operationId: getDataPersonResource
+      description: gets a person from the database
+      responses:
+        '200':
+          description: gets a person
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Persons'
+        '400':
+          description: wrong input
+components:
+  schemas:
+    Persons:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - company_name
+      properties:
+        first_name:
+          type: string
+          example: 'Taco'
+        last_name:
+          type: string
+          example: 'Fargo'
+        company_name:
+          type: string
+          example: 'Alpha Omega Upholstery'
+    AddPerson:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - company_name
+      properties:
+        first_name:
+          type: string
+          example: 'Steeve'
+        last_name:
+          type: string
+          example: 'Doe'
+        company_name:
+          type: string
+          example: 'Tech Inc'
+    Person:
+      type: string
+      example: 'Example: /api/persons/1'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          example: '8'

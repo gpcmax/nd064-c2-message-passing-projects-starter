@@ -19,6 +19,7 @@ def create_person(req):
     stub = service_pb2_grpc.CallServiceStub(channel)
     person = PersonMsg(first_name=req["first_name"] , last_name=req["last_name"], company_name=req["company_name"])
     stub.create_person(person)
+    channel.close()
 
 
 def create_location(req):
@@ -26,6 +27,7 @@ def create_location(req):
     stub = service_pb2_grpc.CallServiceStub(channel)
     location = LocationMsg(person_id=req["person_id"], creation_time=req["creation_time"],latitude=req["latitude"],longitude=req["longitude"])
     stub.create_loc(location)
+    channel.close()
 
 
 consumer = KafkaConsumer('test',

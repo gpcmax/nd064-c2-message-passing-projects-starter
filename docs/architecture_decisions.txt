@@ -1,0 +1,24 @@
+the backend monothic is split up into 3 microservices
+- person-api
+- location-api
+- connection-api
+
+The architecture decision was to split the monolithic into 3 different microservices. The 3 Services are Person-API, Location-API, and Connection-API.
+The Person-API contains Person Service and Person Route. The person route contains a retrieve all for persons in the database, a create for person to add them to the database, and retrieve a person of a unique ID.
+The Connection-API contains Connection Service and Connection route. The connection route retrieves the contacts that a person has made based on the distance from a person.
+The Location-API contains Location Service and Location route. The location route retrieves the locations based on values provided.
+These 3 microservices make up the base application, to handle the data there are two more microservices, Kafka and grpc.
+Kafka and grpc handle the POST messages that are performed by the application. When a POST message is sent from the Person Microservice or Location Microservice to person or location, the messages are then sent to kafka and kafka sends them to GRPC.
+After going to GRPC, the new data is then added to the database and should appear on the application if the data was added correctly.
+
+Why Kafka?
+- I choose Kafka mainly because it is open source, so I know if I have trouble I would be able to have documentation and resources if I had trouble.
+- Kafka is a distributed service which allows it to handle many messages and scale the software to scale easily.
+- for future scaling, if the team wanted to add more to the application they could still use kafka without needing to integrat another true for the new microservice.
+
+grpc
+- One of the reasons why I chose grpc is for learning more of a tool that I had no knowledge of and is starting to see more traction in the industry.
+- grpc is very fast and also efficient at transporting structured data.
+- grpc does not require a HTTP library to make requests, instead the application can make the calls.
+
+With the changes above, the application should be able to scale with a decent amount of users. Some changes to the code base will be needed to better handle error handling though.

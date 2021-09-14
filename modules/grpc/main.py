@@ -150,13 +150,10 @@ server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
 service_pb2_grpc.add_CallServiceServicer_to_server(
 	CallServicer(), server)
 
-# listen on port 50051
 print('Starting server. Listening on port 5004.')
-server.add_insecure_port('[::]:5004')
+server.add_insecure_port('localhost:5004', options=(('grpc.enable_http_proxy', 0)))
 server.start()
 
-# since server.start() will not block,
-# a sleep-loop is added to keep alive
 try:
 	while True:
 		time.sleep(86400)

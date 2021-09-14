@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+  description: retrieval of locations from the locations-api.
+  version: "1.0.0"
+  title: location-api
+paths:
+  '/api/locations':
+    post:
+      summary: creates and stores a new location.
+      operationId: addLocationnDataResources
+      description: adds a new location
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewLocation'
+        description: added new location
+      responses:
+        '201':
+          description: added new location
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewLocation'
+        '400':
+          description: 'invalid input'
+    get:
+      summary: location retrieval
+      operationId: getDataLocationResource
+      description: retrieves a location
+      parameters:
+        - in:  query
+          name: location_id
+          schema:
+            type: integer
+          required: false
+          description: id of the location
+        - in:  query
+          name: person_id
+          schema:
+            type: integer
+          required: false
+          description: id of the person
+        - in:  query
+          name: start_date
+          schema:
+            type: string
+          required: false
+          description: start_date to search
+        - in:  query
+          name: end_date
+          schema:
+            type: string
+          required: false
+          description: end_date to search
+        - in:  query
+          name: meters
+          schema:
+            type: integer
+          required: false
+          description: the distance to search in meters
+        - in:  query
+          name: longitude
+          schema:
+            type: integer
+          required: false
+          description: the longitude of the location
+        - in:  query
+          name: latitude
+          schema:
+            type: integer
+          required: false
+          description: the latitude of the location
+      responses:
+        '200':
+          description: the location that we want to retrieve
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+        '400':
+          description: wrong input      
+components:
+  schemas:
+    NewLocation:
+      type: object
+      required:
+        - person_id
+        - creation_time
+        - latitude
+        - longitude
+      properties:
+        person_id:
+          type: string
+          example: '1'
+        creation_time:
+          type: string
+          example: '2020-10-05T10:37:06'
+        latitude:
+          type: string
+          example: '25.50'
+        longitude:
+          type: string
+          example: '30.99'
+    Location:
+      type: string
+      example: 'Example: /api/location/12'
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: '12'

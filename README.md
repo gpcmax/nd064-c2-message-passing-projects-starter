@@ -48,11 +48,21 @@ users:
     password: 485084ed2cc05d84494d5893160836c9
     username: admin
 ```
+### install apparmor-parser
+1. `sudo zypper update && zypper install apparmor-parser`
+2. `sudo curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.20.7+k3s1 sh -` change version of k3s
+
+
 Type `exit` to exit the virtual OS and you will find yourself back in your computer's session. Create the file (or replace if it already exists) `~/.kube/config` and paste the contents of the `k3s.yaml` output here.
 
 Afterwards, you can test that `kubectl` works by running a command like `kubectl describe services`. It should not return any errors.
 
-### Steps
+### install Kafka
+1. `helm repo add bitnami https://charts.bitnami.com/bitnami`
+2. `helm repo update`
+3. `helm install my-release bitnami/kafka`
+
+### Steps to deploy
 1. `kubectl apply -f deployment/db-configmap.yaml` - Set up environment variables for the pods
 2. `kubectl apply -f deployment/db-secret.yaml` - Set up secrets for the pods
 3. `kubectl apply -f deployment/postgres.yaml` - Set up a Postgres database running PostGIS
@@ -61,9 +71,8 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
 6. `kubectl apply -f deployment/connection-deploy-api.yaml` - Set up the service and deployment for the connection API4. 
 7. `kubectl apply -f deployment/grpc-deploy-api.yaml` - Set up the service and deployment for grpc 
 8. `kubectl apply -f deployment/kafka-deploy-api.yaml` - Set up the service and deployment for kafka
-9. `kubectl apply -f deployment/udaconnect-api.yaml` - Set up the service and deployment for the API
-10. `kubectl apply -f deployment/udaconnect-app.yaml` - Set up the service and deployment for the web app
-11. `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
+9. `kubectl apply -f deployment/udaconnect-app.yaml` - Set up the service and deployment for the web app
+10. `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
 
 ### Verifying it Works
 Once the project is up and running, you should be able to see 3 deployments and 3 services in Kubernetes:
@@ -79,6 +88,7 @@ These pages should also load on your web browser:
 * `http://localhost:30004/api/` - Base path for Person API
 * `http://localhost:30000/` - Frontend ReactJS Application
 
+# Udaconnect old way
 ## Overview
 ### Background
 Conferences and conventions are hotspots for making connections. Professionals in attendance often share the same interests and can make valuable business and personal connections with one another. At the same time, these events draw a large crowd and it's often hard to make these connections in the midst of all of these events' excitement and energy. To help attendees make connections, we are building the infrastructure for a service that can inform attendees if they have attended the same booths and presentations at an event.

@@ -1,0 +1,3 @@
+In the Modules folder within in the grpc folder there is a python script you can run that will insert a Person into database.
+
+run "python WriteGRPC.py" and a new person will be added to the website

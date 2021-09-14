@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  description: Retrieval of connections from the connection-api
+  version: "1.0.0"
+  title: The connection-api
+paths:
+  '/api/persons/{person_id}/connection{start_date}&{end_date}&{distance}':
+    parameters:
+      - in: path
+        description: Unique ID for a given Person
+        name: person_id
+        required: true
+        schema:
+          $ref: '#/components/schemas/connection'
+      - in: path
+        description: Lower bound of date range
+        name: start_date
+        required: true
+        schema:
+          $ref: '#/components/schemas/connection'
+      - in: path
+        description: Upper bound of date range
+        name: end_date
+        required: true
+        schema:
+          $ref: '#/components/schemas/connection'
+      - in: path
+        description: Proximity to a given user in meters
+        name: distance
+        required: true
+        schema:
+          $ref: '#/components/schemas/connection'
+    get:
+      summary: connection retrieval
+      operationId: getConnectionDataResource
+      description: connection retrieval
+      responses:
+        '200':
+          description: connection persons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/connection'
+        '400':
+          description: Bad input parameter
+components:
+  schemas:
+    connection:
+      type: string
+      example: 'Example: /api/persons/500/connection?start_date=2018-05-05&end_date=2020-01-30&distance=100'
+      required:
+        - start_date
+        - end_date
+        - distance
+      properties:
+        person_id:
+          type: string
+          example: '500'
+        start_date:
+          type: string
+          example: '2020-01-01'
+        end_date:
+          type: string
+          example: '2021-12-30'
+        distance:
+          type: string
+          example: '5'
